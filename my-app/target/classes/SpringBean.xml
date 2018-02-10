@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"> 
-    <bean id="catMurka" class="com.mitinyova.animals.Cat"/>
-    <bean id="catMurluk" class="com.mitinyova.animals.Cat">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd"> 
+    <context:annotation-config/>
+    <context:component-scan base-package="com.mitinyova.animals" />
+    
+    <bean id="catMurka" class="com.mitinyova.animals.Cat" autowire="constructor"/>
+    
+    <bean id="yellow-tangle" class="com.mitinyova.things.Tangle" primary="false"/>
+    
+    <bean id="red-tangle" class="com.mitinyova.things.Tangle" primary="true">
+      <constructor-arg value="Red"/> 
+    </bean>
+    
+    <bean id="catMurluk" class="com.mitinyova.animals.Cat" autowire="byType">
       <constructor-arg value="Murluk"/>
     </bean>
-    <bean id="mouse" class="com.mitinyova.animals.Mouse" scope="prototype"/>
+ 
     <bean id="catVaska" class="com.mitinyova.animals.Cat">
         <property name="name" value="Vaska"></property>
-        <property name="snack">
-          <list>
-            <ref bean="mouse"></ref>
-            <ref bean="mouse"></ref>
-            <ref bean="mouse"></ref>
-          </list>
-        </property>
     </bean>
 </beans>
