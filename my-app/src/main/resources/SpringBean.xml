@@ -41,4 +41,22 @@
 	
 	<bean id="Dog" class="com.mitinyova.animals.Dog"/>
     <aop:aspectj-autoproxy />
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+       <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+       <property name="url" value="jdbc:mysql://localhost:3306/testjdbc" />
+       <property name="username" value="root" />
+       <property name="password" value="" />
+       <property name="initialSize" value="5" />
+       <property name="maxTotal" value="10" />
+    </bean>
+    
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+       <constructor-arg ref="dataSource"/>
+    </bean>
+    
+    <context:component-scan
+       base-package="com.mitinyova.myjdbc"/>
+       
+    <bean id="worker" class="com.mitinyova.myjdbc.WorkWithCats"/>    
 </beans>
